@@ -5,7 +5,7 @@ using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GuiAdb
+namespace ADBB
 {
     public class AdbSetting
     {

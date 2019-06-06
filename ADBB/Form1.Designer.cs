@@ -1,4 +1,4 @@
-﻿namespace GuiAdb
+﻿namespace ADBB
 {
     partial class Form1
     {
@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.PackageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -45,31 +44,20 @@
             this.iP接続ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.開始ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.終了ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aPKインストールToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.device更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iP接続開始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.開始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.aPKインストールToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.端末シャットダウンToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.PackageCellContextMenuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.BackgroundImage = global::GuiAdb.Properties.Resources.ic_replay_white_36dp;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(900, -10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(32, 32);
-            this.button1.TabIndex = 0;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Visible = false;
             // 
             // dataGridView1
             // 
@@ -172,7 +160,9 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.device更新ToolStripMenuItem1,
             this.iP接続ToolStripMenuItem,
-            this.aPKインストールToolStripMenuItem});
+            this.aPKインストールToolStripMenuItem,
+            this.端末シャットダウンToolStripMenuItem,
+            this.設定ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(944, 24);
@@ -208,6 +198,13 @@
             this.終了ToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
             this.終了ToolStripMenuItem1.Text = "終了";
             this.終了ToolStripMenuItem1.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
+            // 
+            // aPKインストールToolStripMenuItem
+            // 
+            this.aPKインストールToolStripMenuItem.Name = "aPKインストールToolStripMenuItem";
+            this.aPKインストールToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.aPKインストールToolStripMenuItem.Text = "APKインストール";
+            this.aPKインストールToolStripMenuItem.Click += new System.EventHandler(this.APKインストールToolStripMenuItem_Click);
             // 
             // device更新ToolStripMenuItem
             // 
@@ -254,12 +251,19 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "device";
             // 
-            // aPKインストールToolStripMenuItem
+            // 端末シャットダウンToolStripMenuItem
             // 
-            this.aPKインストールToolStripMenuItem.Name = "aPKインストールToolStripMenuItem";
-            this.aPKインストールToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.aPKインストールToolStripMenuItem.Text = "APKインストール";
-            this.aPKインストールToolStripMenuItem.Click += new System.EventHandler(this.APKインストールToolStripMenuItem_Click);
+            this.端末シャットダウンToolStripMenuItem.Name = "端末シャットダウンToolStripMenuItem";
+            this.端末シャットダウンToolStripMenuItem.Size = new System.Drawing.Size(104, 20);
+            this.端末シャットダウンToolStripMenuItem.Text = "端末シャットダウン";
+            this.端末シャットダウンToolStripMenuItem.Click += new System.EventHandler(this.端末シャットダウンToolStripMenuItem_Click);
+            // 
+            // 設定ToolStripMenuItem
+            // 
+            this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
+            this.設定ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.設定ToolStripMenuItem.Text = "設定";
+            this.設定ToolStripMenuItem.Click += new System.EventHandler(this.設定ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -273,7 +277,6 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "ADBB";
@@ -290,8 +293,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn PackageName;
         private System.Windows.Forms.TextBox textBox1;
@@ -314,6 +315,8 @@
         private System.Windows.Forms.ToolStripMenuItem 開始ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aPKインストールToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 端末シャットダウンToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
     }
 }
 

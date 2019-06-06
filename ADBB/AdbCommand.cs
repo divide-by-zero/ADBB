@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GuiAdb
+namespace ADBB
 {
     public class AdbCommand
     {
@@ -70,9 +70,7 @@ namespace GuiAdb
             try
             {
                 var result = await Cmd(null, "devices");
-                return result.Skip(1).Select(s => s.Split(new[]{
-                    "\t"
-                }, StringSplitOptions.None)).Select(s => new Device(s[0], s[1]));
+                return result.Skip(1).Select(s => s.Split(new[]{"\t"}, StringSplitOptions.None)).Select(s => new Device(s[0], s[1]));
             }
             catch
             {
@@ -85,9 +83,7 @@ namespace GuiAdb
             try
             {
                 var result = await Cmd(device, "shell pm list package", "-3");
-                return result.Skip(0).Select(s => s.Split(new[]{
-                    ":"
-                }, StringSplitOptions.None)).Select(s => new PackageData(s[1]));
+                return result.Skip(0).Select(s => s.Split(new[]{":"}, StringSplitOptions.None)).Select(s => new PackageData(s[1]));
             }
             catch
             {
@@ -107,7 +103,6 @@ namespace GuiAdb
 
                     if (isSuccess) return true;
 
-                    Console.WriteLine(string.Join("\n", result));
                     return false;
                 }
             }
@@ -123,9 +118,7 @@ namespace GuiAdb
             {
                 var dumpResult = await Cmd(device, "shell", $"\"pm dump {package.Name} | grep -A 2 android.intent.action.MAIN | head -2 | tail -1\"");
 
-                var packageActivityName = dumpResult[1].Split(new[]{
-                    " "
-                }, StringSplitOptions.RemoveEmptyEntries).ElementAtOrDefault(1);
+                var packageActivityName = dumpResult[1].Split(new[]{" "}, StringSplitOptions.RemoveEmptyEntries).ElementAtOrDefault(1);
 
                 var result = await Cmd(device, "shell am start", "-n", packageActivityName);
 
@@ -133,41 +126,82 @@ namespace GuiAdb
 
                 if (isSuccess) return true;
 
-                Console.WriteLine(string.Join("\n", result));
                 return false;
             }
             catch
             {
-                
+                return false;
             }
-            return false;
         }
+
+        public async Task<bool> StopPackage(Device device, PackageData package)
+        {
+            try
+            {
+                var result = await Cmd(device, "shell am force-stop", package.Name);
+
+                var isSuccess = result.FirstOrDefault()?.IndexOf("Success") >= 0 || result.FirstOrDefault()?.IndexOf("Starting") >= 0;
+
+                if (isSuccess) return true;
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         public async Task<bool> InstallPackage(Device device, string filePath)
         {
-            var result = await Cmd(device, "install", "-r",filePath);
+            try
+            {
+                var result = await Cmd(device, "install", "-r", filePath);
 
-            var isSuccess = result.Any(s => s.IndexOf("Success") >= 0);
-            if (isSuccess) return true;
-            Console.WriteLine(string.Join("\n", result));
+                var isSuccess = result.Any(s => s.IndexOf("Success") >= 0);
+                if (isSuccess) return true;
+            }
+            catch
+            {
+
+            }
             return false;
         }
 
         public async Task<bool> ConnectIp(Device device)
         {
             var result = await Cmd(device, "shell", "\"ifconfig wlan0 | grep 'inet addr:' | sed -e 's/^.*inet addr://' -e 's/ .*//'\"");
-            var tcpIpResult = await Cmd(device, "tcpip", "5555");
-
+            await Cmd(device, "tcpip", "5555");
             var connectResult =  await Cmd(device, "connect", $"{result[0]}:5555");
-
             if (connectResult.Any(s => s.IndexOf("connected to") >= 0)) return true;
-
             return false;
         }
 
-        public Task DisconnectIp()
+        public async Task<bool> DisconnectIp()
         {
-            return Cmd(null, "disconnect");
+            try
+            {
+                await Cmd(null, "disconnect");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Shutdown()
+        {
+            try
+            {
+                Cmd(null, "shell", "reboot -p");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

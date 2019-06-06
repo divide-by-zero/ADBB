@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace GuiAdb
+namespace ADBB
 {
     public class WaitCursor : IDisposable
     {

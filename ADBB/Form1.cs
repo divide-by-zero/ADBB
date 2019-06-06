@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GuiAdb
+namespace ADBB
 {
     public partial class Form1 : Form
     {
@@ -195,6 +194,16 @@ namespace GuiAdb
             {
                 await Task.Run(() => _adb.InstallPackage(_targetDevice, openFileDialog.FileName));
             }
+        }
+
+        private void 端末シャットダウンToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _adb.Shutdown();
+        }
+
+        private void 設定ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

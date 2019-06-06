@@ -1,4 +1,4 @@
-﻿namespace GuiAdb
+﻿namespace ADBB
 {
     public class Device
     {
