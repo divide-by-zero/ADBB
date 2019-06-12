@@ -1,5 +1,5 @@
 # ADBB
-ADB GUI Bridge
+ADB GUI Bridge  
 adb.exe のCUIでよく使うコマンドをGUIでラップしたもの
 
 #出来る事
