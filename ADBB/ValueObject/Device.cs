@@ -6,6 +6,7 @@
         public string Type { get; }
 
         public string DispName => Name + ":" + Type;
+        public static Device None => new Device("None","None");
 
         public Device(string name,string type)
         {

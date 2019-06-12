@@ -29,60 +29,73 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.packageDataGrid = new System.Windows.Forms.DataGridView();
+            this.PackageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.PackageCellContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.起動ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.launchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.アンインストールToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.終了ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.uninstallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.abortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.device更新ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.iP接続ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.開始ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.終了ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.aPKインストールToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.端末シャットダウンToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceUpdateToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPConnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ipConnectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ipDisconnectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.apkInstallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceRebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceShutdownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.device更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iP接続開始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.開始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.PackageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.packageDataGrid)).BeginInit();
             this.PackageCellContextMenuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // packageDataGrid
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.packageDataGrid.AllowDrop = true;
+            this.packageDataGrid.AllowUserToAddRows = false;
+            this.packageDataGrid.AllowUserToDeleteRows = false;
+            this.packageDataGrid.AllowUserToResizeColumns = false;
+            this.packageDataGrid.AllowUserToResizeRows = false;
+            this.packageDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.packageDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.packageDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PackageName});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 53);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowTemplate.Height = 21;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(920, 351);
-            this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellDoubleClick);
+            this.packageDataGrid.Location = new System.Drawing.Point(12, 53);
+            this.packageDataGrid.MultiSelect = false;
+            this.packageDataGrid.Name = "packageDataGrid";
+            this.packageDataGrid.ReadOnly = true;
+            this.packageDataGrid.RowHeadersVisible = false;
+            this.packageDataGrid.RowTemplate.Height = 21;
+            this.packageDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.packageDataGrid.Size = new System.Drawing.Size(920, 351);
+            this.packageDataGrid.TabIndex = 1;
+            this.packageDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellDoubleClick);
+            this.packageDataGrid.DragDrop += new System.Windows.Forms.DragEventHandler(this.PackageDataGrid_DragDrop);
+            this.packageDataGrid.DragEnter += new System.Windows.Forms.DragEventHandler(this.PackageDataGrid_DragEnter);
+            // 
+            // PackageName
+            // 
+            this.PackageName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PackageName.DataPropertyName = "Name";
+            this.PackageName.HeaderText = "Package";
+            this.PackageName.Name = "PackageName";
+            this.PackageName.ReadOnly = true;
             // 
             // textBox1
             // 
@@ -96,42 +109,43 @@
             // PackageCellContextMenuStrip
             // 
             this.PackageCellContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.起動ToolStripMenuItem,
+            this.launchToolStripMenuItem,
             this.toolStripSeparator1,
-            this.アンインストールToolStripMenuItem,
-            this.終了ToolStripMenuItem2});
+            this.uninstallToolStripMenuItem,
+            this.abortToolStripMenuItem});
             this.PackageCellContextMenuStrip.Name = "PackageCellContextMenuStrip";
             this.PackageCellContextMenuStrip.Size = new System.Drawing.Size(146, 76);
             // 
-            // 起動ToolStripMenuItem
+            // launchToolStripMenuItem
             // 
-            this.起動ToolStripMenuItem.Name = "起動ToolStripMenuItem";
-            this.起動ToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.起動ToolStripMenuItem.Text = "起動";
-            this.起動ToolStripMenuItem.Click += new System.EventHandler(this.起動ToolStripMenuItem_Click);
+            this.launchToolStripMenuItem.Name = "launchToolStripMenuItem";
+            this.launchToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.launchToolStripMenuItem.Text = "起動";
+            this.launchToolStripMenuItem.Click += new System.EventHandler(this.起動ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(142, 6);
             // 
-            // アンインストールToolStripMenuItem
+            // uninstallToolStripMenuItem
             // 
-            this.アンインストールToolStripMenuItem.Name = "アンインストールToolStripMenuItem";
-            this.アンインストールToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.アンインストールToolStripMenuItem.Text = "アンインストール";
-            this.アンインストールToolStripMenuItem.Click += new System.EventHandler(this.アンインストールToolStripMenuItem_Click);
+            this.uninstallToolStripMenuItem.Name = "uninstallToolStripMenuItem";
+            this.uninstallToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.uninstallToolStripMenuItem.Text = "アンインストール";
+            this.uninstallToolStripMenuItem.Click += new System.EventHandler(this.uninstallToolStripMenuItem_Click);
             // 
-            // 終了ToolStripMenuItem2
+            // abortToolStripMenuItem
             // 
-            this.終了ToolStripMenuItem2.Name = "終了ToolStripMenuItem2";
-            this.終了ToolStripMenuItem2.Size = new System.Drawing.Size(145, 22);
-            this.終了ToolStripMenuItem2.Text = "終了";
-            this.終了ToolStripMenuItem2.Click += new System.EventHandler(this.終了ToolStripMenuItem2_Click);
+            this.abortToolStripMenuItem.Name = "abortToolStripMenuItem";
+            this.abortToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.abortToolStripMenuItem.Text = "強制終了";
+            this.abortToolStripMenuItem.Click += new System.EventHandler(this.abortToolStripMenuItem2_Click);
             // 
             // comboBox1
             // 
             this.comboBox1.DisplayMember = "DispName";
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(56, 27);
             this.comboBox1.Name = "comboBox1";
@@ -166,74 +180,90 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.device更新ToolStripMenuItem1,
-            this.iP接続ToolStripMenuItem,
-            this.aPKインストールToolStripMenuItem,
-            this.端末シャットダウンToolStripMenuItem,
-            this.設定ToolStripMenuItem});
+            this.deviceUpdateToolStripMenuItem1,
+            this.iPConnectToolStripMenuItem,
+            this.apkInstallToolStripMenuItem,
+            this.DeviceToolStripMenuItem,
+            this.configToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(944, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // device更新ToolStripMenuItem1
+            // deviceUpdateToolStripMenuItem1
             // 
-            this.device更新ToolStripMenuItem1.Name = "device更新ToolStripMenuItem1";
-            this.device更新ToolStripMenuItem1.Size = new System.Drawing.Size(78, 20);
-            this.device更新ToolStripMenuItem1.Text = "Device更新";
-            this.device更新ToolStripMenuItem1.Click += new System.EventHandler(this.Device更新ToolStripMenuItem_Click);
+            this.deviceUpdateToolStripMenuItem1.Name = "deviceUpdateToolStripMenuItem1";
+            this.deviceUpdateToolStripMenuItem1.Size = new System.Drawing.Size(78, 20);
+            this.deviceUpdateToolStripMenuItem1.Text = "Device更新";
+            this.deviceUpdateToolStripMenuItem1.Click += new System.EventHandler(this.DeviceUpdateToolStripMenuItem_Click);
             // 
-            // iP接続ToolStripMenuItem
+            // iPConnectToolStripMenuItem
             // 
-            this.iP接続ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.開始ToolStripMenuItem1,
-            this.終了ToolStripMenuItem1});
-            this.iP接続ToolStripMenuItem.Name = "iP接続ToolStripMenuItem";
-            this.iP接続ToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.iP接続ToolStripMenuItem.Text = "IP接続";
+            this.iPConnectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ipConnectToolStripMenuItem1,
+            this.ipDisconnectToolStripMenuItem1});
+            this.iPConnectToolStripMenuItem.Name = "iPConnectToolStripMenuItem";
+            this.iPConnectToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.iPConnectToolStripMenuItem.Text = "IP接続";
             // 
-            // 開始ToolStripMenuItem1
+            // ipConnectToolStripMenuItem1
             // 
-            this.開始ToolStripMenuItem1.Name = "開始ToolStripMenuItem1";
-            this.開始ToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
-            this.開始ToolStripMenuItem1.Text = "開始";
-            this.開始ToolStripMenuItem1.Click += new System.EventHandler(this.開始ToolStripMenuItem_Click);
+            this.ipConnectToolStripMenuItem1.Name = "ipConnectToolStripMenuItem1";
+            this.ipConnectToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
+            this.ipConnectToolStripMenuItem1.Text = "開始";
+            this.ipConnectToolStripMenuItem1.Click += new System.EventHandler(this.IpConnectToolStripMenuItem_Click);
             // 
-            // 終了ToolStripMenuItem1
+            // ipDisconnectToolStripMenuItem1
             // 
-            this.終了ToolStripMenuItem1.Name = "終了ToolStripMenuItem1";
-            this.終了ToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
-            this.終了ToolStripMenuItem1.Text = "終了";
-            this.終了ToolStripMenuItem1.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
+            this.ipDisconnectToolStripMenuItem1.Name = "ipDisconnectToolStripMenuItem1";
+            this.ipDisconnectToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
+            this.ipDisconnectToolStripMenuItem1.Text = "終了";
+            this.ipDisconnectToolStripMenuItem1.Click += new System.EventHandler(this.IpDisconnectToolStripMenuItem_Click);
             // 
-            // aPKインストールToolStripMenuItem
+            // apkInstallToolStripMenuItem
             // 
-            this.aPKインストールToolStripMenuItem.Name = "aPKインストールToolStripMenuItem";
-            this.aPKインストールToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.aPKインストールToolStripMenuItem.Text = "APKインストール";
-            this.aPKインストールToolStripMenuItem.Click += new System.EventHandler(this.APKインストールToolStripMenuItem_Click);
+            this.apkInstallToolStripMenuItem.Name = "apkInstallToolStripMenuItem";
+            this.apkInstallToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.apkInstallToolStripMenuItem.Text = "APKインストール";
+            this.apkInstallToolStripMenuItem.Click += new System.EventHandler(this.APKInstallToolStripMenuItem_Click);
             // 
-            // 端末シャットダウンToolStripMenuItem
+            // DeviceToolStripMenuItem
             // 
-            this.端末シャットダウンToolStripMenuItem.Name = "端末シャットダウンToolStripMenuItem";
-            this.端末シャットダウンToolStripMenuItem.Size = new System.Drawing.Size(104, 20);
-            this.端末シャットダウンToolStripMenuItem.Text = "端末シャットダウン";
-            this.端末シャットダウンToolStripMenuItem.Click += new System.EventHandler(this.端末シャットダウンToolStripMenuItem_Click);
+            this.DeviceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deviceRebootToolStripMenuItem,
+            this.deviceShutdownToolStripMenuItem});
+            this.DeviceToolStripMenuItem.Name = "DeviceToolStripMenuItem";
+            this.DeviceToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.DeviceToolStripMenuItem.Text = "端末";
             // 
-            // 設定ToolStripMenuItem
+            // deviceRebootToolStripMenuItem
             // 
-            this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
-            this.設定ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.設定ToolStripMenuItem.Text = "設定";
-            this.設定ToolStripMenuItem.Click += new System.EventHandler(this.設定ToolStripMenuItem_Click);
+            this.deviceRebootToolStripMenuItem.Name = "deviceRebootToolStripMenuItem";
+            this.deviceRebootToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.deviceRebootToolStripMenuItem.Text = "再起動";
+            this.deviceRebootToolStripMenuItem.Click += new System.EventHandler(this.DeviceRebootToolStripMenuItem_Click);
+            // 
+            // deviceShutdownToolStripMenuItem
+            // 
+            this.deviceShutdownToolStripMenuItem.Name = "deviceShutdownToolStripMenuItem";
+            this.deviceShutdownToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.deviceShutdownToolStripMenuItem.Text = "シャットダウン";
+            this.deviceShutdownToolStripMenuItem.Click += new System.EventHandler(this.DeviceShutdownToolStripMenuItem_Click_1);
+            // 
+            // configToolStripMenuItem
+            // 
+            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.configToolStripMenuItem.Text = "設定";
+            this.configToolStripMenuItem.Click += new System.EventHandler(this.ConfigToolStripMenuItem_Click);
             // 
             // device更新ToolStripMenuItem
             // 
             this.device更新ToolStripMenuItem.Name = "device更新ToolStripMenuItem";
             this.device更新ToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.device更新ToolStripMenuItem.Text = "Device更新";
-            this.device更新ToolStripMenuItem.Click += new System.EventHandler(this.Device更新ToolStripMenuItem_Click);
+            this.device更新ToolStripMenuItem.Click += new System.EventHandler(this.DeviceUpdateToolStripMenuItem_Click);
             // 
             // iP接続開始ToolStripMenuItem
             // 
@@ -246,14 +276,14 @@
             this.開始ToolStripMenuItem.Name = "開始ToolStripMenuItem";
             this.開始ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.開始ToolStripMenuItem.Text = "開始";
-            this.開始ToolStripMenuItem.Click += new System.EventHandler(this.開始ToolStripMenuItem_Click);
+            this.開始ToolStripMenuItem.Click += new System.EventHandler(this.IpConnectToolStripMenuItem_Click);
             // 
             // 終了ToolStripMenuItem
             // 
             this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
             this.終了ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.終了ToolStripMenuItem.Text = "終了";
-            this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
+            this.終了ToolStripMenuItem.Click += new System.EventHandler(this.IpDisconnectToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -273,14 +303,6 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "device";
             // 
-            // PackageName
-            // 
-            this.PackageName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PackageName.DataPropertyName = "Name";
-            this.PackageName.HeaderText = "Package";
-            this.PackageName.Name = "PackageName";
-            this.PackageName.ReadOnly = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -292,12 +314,12 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.packageDataGrid);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "ADBB";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.packageDataGrid)).EndInit();
             this.PackageCellContextMenuStrip.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -309,11 +331,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView packageDataGrid;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ContextMenuStrip PackageCellContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem アンインストールToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 起動ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uninstallToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem launchToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
@@ -325,16 +347,18 @@
         private System.Windows.Forms.ToolStripMenuItem iP接続開始ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 開始ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem device更新ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem iP接続ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 開始ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem aPKインストールToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 端末シャットダウンToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deviceUpdateToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem iPConnectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ipConnectToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ipDisconnectToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem apkInstallToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem abortToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn PackageName;
+        private System.Windows.Forms.ToolStripMenuItem deviceRebootToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deviceShutdownToolStripMenuItem;
     }
 }
 

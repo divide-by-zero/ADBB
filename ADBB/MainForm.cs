@@ -12,6 +12,7 @@ namespace ADBB
     {
         private List<PackageData> dispData;
         private AdbCommand _adb;
+
         private Device _targetDevice;
         private PackageData _selectPackage;
         private Progress<AdbCommand.AdbProgressData> progress;
@@ -20,8 +21,13 @@ namespace ADBB
         {
             InitializeComponent();
 
-            _adb = new AdbCommand("adb");
+            _adb = new AdbCommand(Properties.Settings.Default.adbPath);
 
+            //ADB.exeへのパスが設定されたら作り直し
+            Properties.Settings.Default.PropertyChanged += (sender, args) => {
+                _adb = new AdbCommand(Properties.Settings.Default.adbPath);
+            };
+            
             Observable.FromEventPattern(textBox1, "TextChanged")
                 .Select(pattern => textBox1.Text)
                 .DistinctUntilChanged()
@@ -29,22 +35,27 @@ namespace ADBB
                 .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(FilterPackage);
 
-            dataGridView1.CellContextMenuStripNeeded += DataGridView1_CellContextMenuStripNeeded;
+            packageDataGrid.CellContextMenuStripNeeded += PackageDataGridCellContextMenuStripNeeded;
 
             progress = new Progress<AdbCommand.AdbProgressData>(async data => {
-                if (data.IsError)
+                if (data.IsRequireDialog)
                 {
-                    MessageBox.Show(data.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //TODO Exception情報を表示するかどうか
+                    if (data.IsError)
+                    {
+                        MessageBox.Show(data.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    if (data.IsSuccess)
+                    {
+                        MessageBox.Show(data.Message, "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
-                else
-                {
-                    toolStripProgressBar1.Visible = true;
-                    toolStripStatusLabel1.Visible = true;
-                    toolStripStatusLabel1.Text = data.Message;
-                    toolStripProgressBar1.MarqueeAnimationSpeed = 50;
-                    toolStripProgressBar1.Style = ProgressBarStyle.Marquee;
-                }
+
+                toolStripProgressBar1.Visible = true;
+                toolStripStatusLabel1.Visible = true;
+                toolStripStatusLabel1.Text = data.Message;
+                toolStripProgressBar1.MarqueeAnimationSpeed = 50;
+                toolStripProgressBar1.Style = ProgressBarStyle.Marquee;
 
                 if (data.IsSuccess | data.IsError)
                 {
@@ -55,11 +66,21 @@ namespace ADBB
             });
         }
 
-        private void DataGridView1_CellContextMenuStripNeeded(object sender, DataGridViewCellContextMenuStripNeededEventArgs e)
+        /// <summary>
+        /// Deviceが選択されている時のみ有効になるメニューの更新処理
+        /// </summary>
+        private void UpdateToolbarMenuEnable()
         {
-            if (e.RowIndex < 0 || e.RowIndex >= dataGridView1.RowCount) return;
+            iPConnectToolStripMenuItem.Enabled = _targetDevice != null;
+            apkInstallToolStripMenuItem.Enabled = _targetDevice != null;
+            DeviceToolStripMenuItem.Enabled = _targetDevice != null;
+        }
 
-            var dataRow = dataGridView1.Rows[e.RowIndex];
+        private void PackageDataGridCellContextMenuStripNeeded(object sender, DataGridViewCellContextMenuStripNeededEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.RowIndex >= packageDataGrid.RowCount) return;
+
+            var dataRow = packageDataGrid.Rows[e.RowIndex];
             dataRow.Cells[0].Selected = true;
             _selectPackage = dataRow.DataBoundItem as PackageData;
             e.ContextMenuStrip = this.PackageCellContextMenuStrip;
@@ -68,150 +89,167 @@ namespace ADBB
         private void FilterPackage(string text)
         {
             if (dispData == null || dispData.Any() == false) return;
-            dataGridView1.DataSource = dispData.Where(data => data.Name.IndexOf(text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            packageDataGrid.DataSource = dispData.Where(data => data.Name.IndexOf(text, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.adbPath))
+            {
+                ConfigToolStripMenuItem_Click(null, null);
+            }
             UpdateDeviceList();
         }
 
-        private void アンインストールToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void uninstallToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Uninstall(_targetDevice, _selectPackage);
+            var result = MessageBox.Show($"{_selectPackage.Name} をアンインストールしてよろしいですか？", "注意", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.Cancel) return ;
+            var unInstallResult = await _adb.UnInstallPackage(_targetDevice,_selectPackage, progress);
+            if (unInstallResult == false) return ;
+            await UpdatePackageList();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             _targetDevice = comboBox1.SelectedItem as Device;
-            UpdatePackageList(_targetDevice);
+            UpdateToolbarMenuEnable();
+            UpdatePackageList();
         }
 
         private void 起動ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LaunchApp(_selectPackage);
+            _adb.LunchPackage(_targetDevice, _selectPackage,progress);
         }
 
-        private async void Device更新ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeviceUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await UpdateDeviceList();
+            UpdateDeviceList();
         }
 
-        private async void 開始ToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void IpConnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_targetDevice == null)
-            {
-                MessageBox.Show("デバイスが選択されていません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            await _adb.ConnectIp(_targetDevice,progress);
+            var result = await _adb.ConnectIp(_targetDevice,progress);
+            if (result == false) return;
             await Task.Delay(1000);//IP接続した直後はUSB接続が出てこないときがある
             await UpdateDeviceList();
         }
 
-        private async void 終了ToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void IpDisconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await _adb.DisconnectIp(progress);
+            var result = await _adb.DisconnectIp(progress);
+            if (result == false) return;
             await UpdateDeviceList();
         }
 
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.RowIndex >= dataGridView1.RowCount) return;
+            if (e.RowIndex < 0 || e.RowIndex >= packageDataGrid.RowCount) return;
 
-            var dataRow = dataGridView1.Rows[e.RowIndex];
+            var dataRow = packageDataGrid.Rows[e.RowIndex];
             dataRow.Cells[0].Selected = true;
             _selectPackage = dataRow.DataBoundItem as PackageData;
 
             var result = MessageBox.Show($"{_selectPackage.Name} を起動してよろしいですか？", "起動確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Cancel) return;
 
-            LaunchApp(_selectPackage);
+            _adb.LunchPackage(_targetDevice, _selectPackage, progress);
         }
 
-        private async void APKインストールToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void APKInstallToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Androidファイル|*.apk";
+            var openFileDialog = new OpenFileDialog{
+                Filter = "Androidファイル|*.apk",
+                Title = "インストールするAPKファイルを選択"
+            };
             var result = openFileDialog.ShowDialog();
 
             if (result != DialogResult.OK) return;
 
-            await _adb.InstallPackage(_targetDevice, openFileDialog.FileName,progress);
+            var installResult = await _adb.InstallPackage(_targetDevice, openFileDialog.FileName,progress);
+            if (installResult == false) return;
+            await UpdatePackageList();
         }
 
-        private void 端末シャットダウンToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeviceShutdownToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            _adb.Shutdown(progress);
+            var result = MessageBox.Show($"Device:{_targetDevice.Name} を強制シャットダウンしてよろしいですか？", "強制シャットダウン確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (result == DialogResult.Cancel) return;
+            _adb.Shutdown(_targetDevice, progress);
         }
 
-        private void 設定ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeviceRebootToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var result = MessageBox.Show($"Device:{_targetDevice.Name} を強制再起動してよろしいですか？", "強制再起動確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (result == DialogResult.Cancel) return;
+            _adb.Reboot(_targetDevice,progress);
         }
 
-        private void 終了ToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void ConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog{
+                Filter = "adb.exe|adb.exe",
+                Title = "adb.exeのパス設定"
+            };
+            var result = openFileDialog.ShowDialog();
+
+            if (result != DialogResult.OK) return;
+
+            Properties.Settings.Default.adbPath = openFileDialog.FileName;
+            Properties.Settings.Default.Save();
+        }
+
+        private void abortToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             _adb.StopPackage(_targetDevice, _selectPackage,progress);
         }
 
-        private async Task<bool> Uninstall(Device device, PackageData package)
-        {
-            var result = MessageBox.Show($"{_selectPackage.Name} をアンインストールしてよろしいですか？", "注意", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-            if (result == DialogResult.Cancel) return false;
-
-            var unInstallResult = await _adb.UnInstallPackage(device, package,progress);
-            if (unInstallResult == false)
-            {
-                MessageBox.Show("アンインストールに失敗しました", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            await UpdatePackageList(_targetDevice);
-            return true;
-        }
-        
-        private async Task<bool> UpdatePackageList(Device _targetDevice)
+        private async Task<bool> UpdatePackageList()
         {
             var package = await _adb.GetPackageList(_targetDevice,progress);
-            if (package == null)
-            {
-                MessageBox.Show("パッケージ情報取得に失敗しました", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            if (package == null) return false;
             dispData = package.ToList();
-            dataGridView1.DataSource = dispData;
-            return true;
-        }
-
-        private async Task<bool> LaunchApp(PackageData targetPackage)
-        {
-            var result = await _adb.LunchPackage(_targetDevice, targetPackage,progress);
-            if (result == false)
-            {
-                MessageBox.Show("起動に失敗しました", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            packageDataGrid.DataSource = dispData;
             return true;
         }
 
         private async Task<bool> UpdateDeviceList()
         {
-            comboBox1.DataSource = null;
+            packageDataGrid.DataSource = new List<PackageData>();
+            comboBox1.DataSource = new List<Device>();
             var result = await _adb.GetDeviceList(progress);
 
-            if (result == null)
-            {
-                MessageBox.Show("デバイス情報取得に失敗しました", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (result.Any() == false)
+            if (result?.Any() != true)
             {
                 MessageBox.Show("デバイスが見つかりません", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _targetDevice = null;
+                UpdateToolbarMenuEnable();
                 return false;
             }
             comboBox1.DataSource = result.ToList();
             return true;
+        }
+
+        private async void PackageDataGrid_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            foreach (var file in files)
+            {
+                await _adb.InstallPackage(_targetDevice, file, progress);
+            }
+            await UpdatePackageList();
+        }
+
+        private void PackageDataGrid_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
     }
 }
