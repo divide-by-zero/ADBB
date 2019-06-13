@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
@@ -250,6 +251,22 @@ namespace ADBB
             {
                 e.Effect = DragDropEffects.None;
             }
+        }
+
+        private void APKToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog(){
+                AddExtension = true,
+                DefaultExt = "apk",
+                Title = "ファイルダウンロード先を選択してください",
+                Filter = "Androidファイル|*.apk"
+
+            };
+
+            var result = saveFileDialog.ShowDialog();
+
+            if (result != DialogResult.OK) return;
+            _adb.DownloadApk(_targetDevice, _selectPackage,  saveFileDialog.FileName, progress);
         }
     }
 }

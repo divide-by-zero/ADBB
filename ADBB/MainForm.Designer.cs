@@ -37,6 +37,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.uninstallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.apkDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -112,35 +113,43 @@
             this.launchToolStripMenuItem,
             this.toolStripSeparator1,
             this.uninstallToolStripMenuItem,
-            this.abortToolStripMenuItem});
+            this.abortToolStripMenuItem,
+            this.apkDownloadToolStripMenuItem});
             this.PackageCellContextMenuStrip.Name = "PackageCellContextMenuStrip";
-            this.PackageCellContextMenuStrip.Size = new System.Drawing.Size(146, 76);
+            this.PackageCellContextMenuStrip.Size = new System.Drawing.Size(149, 98);
             // 
             // launchToolStripMenuItem
             // 
             this.launchToolStripMenuItem.Name = "launchToolStripMenuItem";
-            this.launchToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.launchToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.launchToolStripMenuItem.Text = "起動";
             this.launchToolStripMenuItem.Click += new System.EventHandler(this.起動ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
             // 
             // uninstallToolStripMenuItem
             // 
             this.uninstallToolStripMenuItem.Name = "uninstallToolStripMenuItem";
-            this.uninstallToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.uninstallToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.uninstallToolStripMenuItem.Text = "アンインストール";
             this.uninstallToolStripMenuItem.Click += new System.EventHandler(this.uninstallToolStripMenuItem_Click);
             // 
             // abortToolStripMenuItem
             // 
             this.abortToolStripMenuItem.Name = "abortToolStripMenuItem";
-            this.abortToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.abortToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.abortToolStripMenuItem.Text = "強制終了";
             this.abortToolStripMenuItem.Click += new System.EventHandler(this.abortToolStripMenuItem2_Click);
+            // 
+            // apkDownloadToolStripMenuItem
+            // 
+            this.apkDownloadToolStripMenuItem.Name = "apkDownloadToolStripMenuItem";
+            this.apkDownloadToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.apkDownloadToolStripMenuItem.Text = "APKダウンロード";
+            this.apkDownloadToolStripMenuItem.Click += new System.EventHandler(this.APKToolStripMenuItem_Click);
             // 
             // comboBox1
             // 
@@ -359,6 +368,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PackageName;
         private System.Windows.Forms.ToolStripMenuItem deviceRebootToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deviceShutdownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem apkDownloadToolStripMenuItem;
     }
 }
 
