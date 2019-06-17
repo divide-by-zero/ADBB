@@ -30,13 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.packageDataGrid = new System.Windows.Forms.DataGridView();
-            this.PackageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.PackageCellContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.launchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.uninstallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.apkDownloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -57,6 +57,8 @@
             this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.PackageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ApkPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.packageDataGrid)).BeginInit();
             this.PackageCellContextMenuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -75,7 +77,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.packageDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.packageDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.PackageName});
+            this.PackageName,
+            this.ApkPath});
             this.packageDataGrid.Location = new System.Drawing.Point(12, 53);
             this.packageDataGrid.MultiSelect = false;
             this.packageDataGrid.Name = "packageDataGrid";
@@ -88,14 +91,6 @@
             this.packageDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellDoubleClick);
             this.packageDataGrid.DragDrop += new System.Windows.Forms.DragEventHandler(this.PackageDataGrid_DragDrop);
             this.packageDataGrid.DragEnter += new System.Windows.Forms.DragEventHandler(this.PackageDataGrid_DragEnter);
-            // 
-            // PackageName
-            // 
-            this.PackageName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PackageName.DataPropertyName = "Name";
-            this.PackageName.HeaderText = "Package";
-            this.PackageName.Name = "PackageName";
-            this.PackageName.ReadOnly = true;
             // 
             // textBox1
             // 
@@ -112,35 +107,43 @@
             this.launchToolStripMenuItem,
             this.toolStripSeparator1,
             this.uninstallToolStripMenuItem,
-            this.abortToolStripMenuItem});
+            this.abortToolStripMenuItem,
+            this.apkDownloadToolStripMenuItem});
             this.PackageCellContextMenuStrip.Name = "PackageCellContextMenuStrip";
-            this.PackageCellContextMenuStrip.Size = new System.Drawing.Size(146, 76);
+            this.PackageCellContextMenuStrip.Size = new System.Drawing.Size(149, 98);
             // 
             // launchToolStripMenuItem
             // 
             this.launchToolStripMenuItem.Name = "launchToolStripMenuItem";
-            this.launchToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.launchToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.launchToolStripMenuItem.Text = "起動";
             this.launchToolStripMenuItem.Click += new System.EventHandler(this.起動ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
             // 
             // uninstallToolStripMenuItem
             // 
             this.uninstallToolStripMenuItem.Name = "uninstallToolStripMenuItem";
-            this.uninstallToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.uninstallToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.uninstallToolStripMenuItem.Text = "アンインストール";
             this.uninstallToolStripMenuItem.Click += new System.EventHandler(this.uninstallToolStripMenuItem_Click);
             // 
             // abortToolStripMenuItem
             // 
             this.abortToolStripMenuItem.Name = "abortToolStripMenuItem";
-            this.abortToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.abortToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.abortToolStripMenuItem.Text = "強制終了";
             this.abortToolStripMenuItem.Click += new System.EventHandler(this.abortToolStripMenuItem2_Click);
+            // 
+            // apkDownloadToolStripMenuItem
+            // 
+            this.apkDownloadToolStripMenuItem.Name = "apkDownloadToolStripMenuItem";
+            this.apkDownloadToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.apkDownloadToolStripMenuItem.Text = "APKダウンロード";
+            this.apkDownloadToolStripMenuItem.Click += new System.EventHandler(this.APKToolStripMenuItem_Click);
             // 
             // comboBox1
             // 
@@ -303,6 +306,23 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "device";
             // 
+            // PackageName
+            // 
+            this.PackageName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PackageName.DataPropertyName = "Name";
+            this.PackageName.HeaderText = "Package";
+            this.PackageName.Name = "PackageName";
+            this.PackageName.ReadOnly = true;
+            // 
+            // ApkPath
+            // 
+            this.ApkPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ApkPath.DataPropertyName = "ApkPath";
+            this.ApkPath.HeaderText = "ApkPath";
+            this.ApkPath.Name = "ApkPath";
+            this.ApkPath.ReadOnly = true;
+            this.ApkPath.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -356,9 +376,11 @@
         private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem abortToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PackageName;
         private System.Windows.Forms.ToolStripMenuItem deviceRebootToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deviceShutdownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem apkDownloadToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PackageName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ApkPath;
     }
 }
 

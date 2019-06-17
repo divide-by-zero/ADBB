@@ -141,8 +141,8 @@ namespace ADBB
         public Task<IEnumerable<PackageData>> GetPackageList(Device device, IProgress<AdbProgressData> progress)
         {
             return ProgressWrap("パッケージリスト取得", progress, async () => {
-                var result = await Cmd(device, "shell pm list package", "-3");
-                return result.Skip(0).Select(s => s.Split(new[] { ":" }, StringSplitOptions.None)).Select(s => new PackageData(s[1]));
+                var result = await Cmd(device, "shell pm list package", "-3","-f");
+                return result.Skip(0).Select(s => s.Split(new[] { ":","=" }, StringSplitOptions.None)).Select(s => new PackageData(s[2],s[1]));
             });
         }
 
@@ -197,7 +197,21 @@ namespace ADBB
         {
             return ProgressWrap("アプリケーション停止処理", progress, async() => {
                 var result = await Cmd(device, "shell am force-stop", package.Name);
-                var isSuccess = result.FirstOrDefault()?.IndexOf("Success") >= 0 || result.FirstOrDefault()?.IndexOf("Starting") >= 0;
+                return true;
+            });
+        }
+
+        /// <summary>
+        /// 指定したAndroidデバイスから、指定したパッケージ名のAPKファイルをダウンロー</summary>
+        /// <param name="device"></param>
+        /// <param name="package"></param>
+        /// <param name="progress"></param>
+        /// <returns></returns>
+        public Task<bool> DownloadApk(Device device, PackageData package, string path,IProgress<AdbProgressData> progress)
+        {
+            return ProgressWrap("APKダウンロード", progress, async () => {
+                var result = await Cmd(device, "pull",package.ApkPath,path);
+                var isSuccess = result.LastOrDefault()?.IndexOf("pulled") >= 0;
                 if (isSuccess) return true;
                 throw new Exception();
             });
