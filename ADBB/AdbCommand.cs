@@ -197,9 +197,7 @@ namespace ADBB
         {
             return ProgressWrap("アプリケーション停止処理", progress, async() => {
                 var result = await Cmd(device, "shell am force-stop", package.Name);
-                var isSuccess = result.FirstOrDefault()?.IndexOf("Success") >= 0 || result.FirstOrDefault()?.IndexOf("Starting") >= 0;
-                if (isSuccess) return true;
-                throw new Exception();
+                return true;
             });
         }
 
